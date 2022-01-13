@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Logs App</title>
+	</head>
+	<body>
+		<div class="topnav">
+			<a style="float: right" href="{% url 'logoutuser' %}">Log out</a>
+		</div> 
+		<h2 class="title">SIMPLE</h2>
+		<p class="title">Logs app</p>
+		<div class="container">
+			<form action="" method="post">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-25">
+					<label for="user">Worker</label>
+				</div>
+				<div class="col-75">
+					<select id="user" name="user" required>
+						<option value='{{ user.username }}'>{{ user.username }}</option>
+					</select>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="sevlevel">Severity</label>
+					</div>
+				<div class="col-75">
+					<select id="sevlevel" name="sevlevel" required>
+						<option value="7">7</option>
+						<option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+					</select>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="projname">Project</label>
+					</div>
+				<div class="col-75">
+					<div class="col-75">
+                        <input type="text" id="month" name="month">
+                    </div>
+				</div>
+				<div calss="row">
+					<div class="col-25">
+						<label for="year">Year</label>
+					</div>
+				<div class="col-75">
+					<select id="year" name="year" required>
+						<option selected="selected" value='{% now "Y" %}'>{% now "Y" %}</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+					</select>
+				</div>
+				<div class="row">
+					<input type="submit" value="Calculate">
+				</div>
+				{% if messages %}
+					{% for message in messages %}
+						{% if message.tags %}
+						<p class="message">{{ message }}</p>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+
+			</form>
+		</div>
+	</body>
+<style>
+/** {
+	box-sizing: border-box;
+}*/
+.message {
+	text-align: center;
+	float: left;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 12px;
+	margin: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	resize: vertical;
+}
+.topnav {
+	background-color: lightgray;
+	overflow: hidden;
+	border-radius: 4px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+	background-color: orange;
+	color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a:active {
+	background-color: orange;
+	color: black;
+}
+* {
+	box-sizing: border-box;
+}
+.title {
+	margin: 10px;
+	letter-spacing: 10px;
+	font-size: 2em;
+}
+select {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+input[type=submit] {
+	background-color: orange;
+	color: black;
+	padding: 12px 20px;
+	margin-top: 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+input[type=submit]:hover {
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.container {
+	border-radius: 5px;
+	background-color: lightgray;
+	padding: 20px;
+}
+.col-25 {
+	float: left;
+	width: 25%;
+	margin-top: 6px;
+}
+.col-75 {
+	float: left;
+	width: 75%;
+	margin-top: 6px;
+}
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+@media screen and (max-width: 600px) {
+	.col-25, .col-75, input[type=submit] {
+		width: 100%;
+		margin-top: 0;
+	}
+}
+.container {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+
+}
+.container:hover {
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+html {
+	background-color: gray;
+}
+</style>
+</html>

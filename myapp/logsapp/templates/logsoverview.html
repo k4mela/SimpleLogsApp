@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Logs app</title>
+	</head>
+	<body>
+		<div class="topnav">
+			<a href="{% url 'addprojectpage' %}">Add project</a>
+			<a href="{% url 'projectoverviewpage' %}">Projects overview</a>
+			<a href="{% url 'overviewpage' %}">Logs overview</a>
+			<a style="float: right" href="{% url 'logoutuser' %}">Log out</a>
+		</div> 
+		<h2 class="title">SIMPLE</h2>
+		<p class="title">Logs app</p>
+		<div class="container">
+			<form action="" method="post">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-25">
+					<label for="user">Worker</label>
+				</div>
+				<div class="col-75">
+					<select id="user" name="user">
+						<option value="{{ user.username }}">{{ user.username }}</option>
+						<option value="testuser">testuser</option>
+					</select>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="sevlevel">Severity</label>
+					</div>
+					<div class="col-75">
+						<input type="number" id="sevlevel" name="sevlevel" min="0" max="7">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="time">Time</label>
+					</div>
+					<div class="col-75">
+						<input type="datetime-local" name="time" id="time"> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="comment">Project name</label>
+					</div>
+					<div class="col-75">
+						<textarea id="projname" name="projname" style="height:45px"></textarea>
+					</div>
+				</div>
+                <div class="row">
+					<div class="col-25">
+						<label for="comment">Log content</label>
+					</div>
+					<div class="col-75">
+						<textarea id="logcont" name="logcont" style="height:45px"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<input type="submit" name="submit" id="submit" value="Search">
+				</div>
+
+				<div class="row">
+				<a class="download" href="{% url 'downloadpage' %}?user={{ user }}&sevlevel={{ sevlevel }}&time={{ time }}&projname={{ projname }}&logcont={{ logcont }}">Download as csv</a>
+				</div>
+				<!--<dl class="data">
+					<dt><p>Worker:</p></dt>
+					<dd><p>{{ post.user }}</p></dd>
+					<dt><p>Severity:</p></dt>
+					<dd><p>{{ post.sevlevel }}</p></dd>
+					<dt><p>Timestamp:</p></dt>
+					<dd><p>{{ post.time }}</p></dd>
+					<dt><p>Project name:</p></dt>
+					<dd><p>{{ post.projname }}</p></dd>
+					<dt><p>Log content:</p></dt>
+					<dd><p>{{ post.logcont }}</p></dd>
+				</dl>-->
+				{% if rows %}
+				<table>
+					<tr>
+						<th>Username</th>
+						<th>Severity</th>
+						<th>Time</th>
+						<th>Project</th>
+						<th>Information</th>
+					</tr>
+					{% for post in rows %}
+					<tr>
+						<td>{{ post.user }}</td>
+						<td>{{ post.sevlevel }}</td>
+						<td>{{ post.time }}</td>
+						<td>{{ post.projname }}</td>
+						<td>{{ post.logcont }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				{% endif %}
+			</form>
+		</div>
+	</body>
+<style>
+table, td, th {
+  	border:1px solid black;
+  	padding: 12px;
+  	margin: 12px;
+}
+
+.download {
+	background-color: orange;
+	color: black;
+	text-decoration: none;
+	padding: 12px 20px;
+    margin-top: 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	float: left;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.errors {
+	color: red;
+	margin: 10px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	resize: vertical;
+	float: left;
+}	
+	
+.topnav {
+	background-color: lightgray;
+	overflow: hidden;
+	border-radius: 4px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+	background-color: orange;
+	color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+	background-color: orange;
+	color: black;
+}
+* {
+  	box-sizing: border-box;
+}
+.title {
+	margin: 10px;
+	letter-spacing: 10px;
+	font-size: 2em;
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+input[type=datetime-local] {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+input[type=number] {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+label {
+	padding: 12px 12px 12px 0;
+	display: inline-block;
+	letter-spacing: 3px;
+}
+
+input[type=submit] {
+	background-color: orange;
+	color: black;
+	padding: 12px 20px;
+    margin-top: 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+input[type=submit]:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+	border-radius: 5px;
+	/*background-color: #f2f2f2;*/
+	background-color: lightgray;
+	padding: 20px;
+}
+
+.col-25 {
+	float: left;
+	width: 25%;
+	margin-top: 6px;
+}
+
+.col-75 {
+	float: left;
+	width: 75%;
+	margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+	.col-25, .col-75, input[type=submit] {
+		width: 100%;
+		margin-top: 0;
+	}
+}
+.container {
+	/* Add shadows to create the "card" effect */
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+}
+.container:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+html {
+	background-color: gray;
+}
+</style>
+</html>
