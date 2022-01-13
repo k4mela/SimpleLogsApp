@@ -48,11 +48,11 @@
 				<input type="submit" name="submit" id="submit" value="Submit">
 			</div>
 			{% if messages %}
-			{% for message in messages %}
-			{% if message.tags %}
-			<p class="message">{{ message }}</p>
-			{% endif %}
-			{% endfor %}
+				{% for message in messages %}
+					{% if message.tags %}
+						<p class="message">{{ message }}</p>
+					{% endif %}
+				{% endfor %}
 			{% endif %}
 		</form>
 	</div>
@@ -62,12 +62,6 @@
 	.message {
 		margin: 10px;
 		padding: 12px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-		resize: vertical;
-		float: left;
-
 	}
 
 	.errors {
