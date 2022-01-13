@@ -10,7 +10,7 @@
 
 #### Clone the repository
 
-`git clone git@jazbec-projekti.si:timotejd/SimpleLogsApp.git`
+`git clone git@github.com:k4mela/SimpleLogsApp.git`
 
 #### Install requirements
 
@@ -42,6 +42,6 @@ Logs can only be added to existing projects. Add project "example-project" via a
 
 This will authenticate the request via obtained JWT and post the example log. 
 Projects and logs can be overviewed via app UI.
-For site administration and regular user creation visit the [admin page](http://127.0.0.1:8000/admin/)
+For site administration and regular user creation visit the [admin page](http://127.0.0.1:8000/admin/).
 
 
