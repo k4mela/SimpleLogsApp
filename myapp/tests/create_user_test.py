@@ -5,6 +5,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description="api testing")
 
+parser.add_argument('--adminuser', action='store', dest='adminuser')
+parser.add_argument('--adminpass', action='store', dest='adminpass')
 parser.add_argument('--username', action='store', dest='username')
 parser.add_argument('--password', action='store', dest='password')
 parser.add_argument('--email', action='store', dest='email')
@@ -31,7 +33,7 @@ def refresh_token(token):
     return json.loads(response.content)
 
 
-token = (get_token(args.username, args.password)['access'])
+token = (get_token(args.adminuser, args.adminpass)['access'])
 
 def test_create_user(token):
 
