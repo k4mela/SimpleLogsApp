@@ -36,9 +36,17 @@ In another terminal instance activate venv and navigate to tests folder
 
 `cd SimpleLogsApp/myapp/tests`
 
+#### Users
+
 Regular users can only be added by super users. Run:
 
 `python3 create_user_test.py --adminuser "your_admin_username" --adminpass "your_admin_password" --username "testusername" --password "testpassword" --email "test@email.com" --firstname "test" --lastname "test"`
+
+To remove an existing user run:
+
+`python3 delete_user_test.py --adminuser "your_admin_username" --adminpass "your_admin_password" --username "testusername"`
+
+#### Logs
 
 Logs can only be added to existing projects. Add project "example-project" via app UI and run:
 
