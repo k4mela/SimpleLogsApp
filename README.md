@@ -30,11 +30,15 @@
 
 and visit [127.0.0.1:8000](http://127.0.0.1:8000/)
 
-### Api logs post testing
+### Api testing
 
 In another terminal instance activate venv and navigate to tests folder
 
 `cd SimpleLogsApp/myapp/tests`
+
+Regular users can only be added by super users. Run:
+
+`python3 create_user_test.py --adminuser "your_admin_username" --adminpass "your_admin_password" --username "testusername" --password "testpassword" --email "test@email.com" --firstname "test" --lastname "test"`
 
 Logs can only be added to existing projects. Add project "example-project" via app UI and run:
 
