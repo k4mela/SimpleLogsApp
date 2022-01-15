@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from rest_framework.views import APIView
@@ -14,7 +15,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from datetime import timedelta
 from .models import AddLogs, AddProjects
-from .serializers import AddLogsSerializer
+from .serializers import AddLogsSerializer, UserSerializer
 
 
 
@@ -39,6 +40,38 @@ def downloadpage(request):
     response = HttpResponse(GeneratedString, content_type="text/csv")
     response['Content-Disposition'] = 'inline; filename=output.csv'
     return response
+
+
+class UserViews(APIView):
+
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            username = request.data.get('username')
+            password = request.data.get('password')
+            email = request.data.get('email')
+            first_name = request.data.get('first_name')
+            last_name = request.data.get('last_name')
+            print(username, password, email, first_name, last_name)
+            user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name)
+
+            user.set_password(password)
+            user.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        username = request.data.get('username')
+        try:
+            user = User.objects.get(username=username)
+            user.delete()
+            return Response({"status": "success"}, status=status.HTTP_200_OK)
+        except:
+            return Response({"status": "error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
