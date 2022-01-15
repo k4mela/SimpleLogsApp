@@ -54,6 +54,5 @@ Logs can only be added to existing projects. Add project "example-project" via a
 
 This will authenticate the request via obtained JWT and post the example log. 
 Projects and logs can be overviewed via app UI.
-For site administration and regular user creation visit the [admin page](http://127.0.0.1:8000/admin/).
 
 
