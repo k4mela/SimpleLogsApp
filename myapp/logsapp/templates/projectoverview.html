@@ -19,13 +19,10 @@
 			{% csrf_token %}
 			<div class="row">
 				<div class="col-25">
-					<label for="user">User</label>
+					<label for="project">User</label>
 				</div>
 				<div class="col-75">
-					<select id="user" name="user">
-						<option value="{{ user.username }}">{{ user.username }}</option>
-						<option value="testuser">testuser</option>
-					</select>
+					<input type="text" id="user" name="user">
 				</div>
 			</div>
 			<div class="row">
@@ -33,7 +30,7 @@
 					<label for="project">Project name</label>
 				</div>
 				<div class="col-75">
-					<textarea id="project" name="project" style="height:45px"></textarea>
+					<input type="text" id="project" name="project">
 				</div>
 			</div>
 			<div class="row">

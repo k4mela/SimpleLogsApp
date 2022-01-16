@@ -20,10 +20,7 @@
 					<label for="user">Worker</label>
 				</div>
 				<div class="col-75">
-					<select id="user" name="user">
-						<option value="{{ user.username }}">{{ user.username }}</option>
-						<option value="testuser">testuser</option>
-					</select>
+					<input type="text" value="{{ user.username }}" id="user" name="user">
 				</div>
 			</div>
 				<div class="row">
@@ -47,7 +44,7 @@
 						<label for="comment">Project name</label>
 					</div>
 					<div class="col-75">
-						<textarea id="projname" name="projname" style="height:45px"></textarea>
+						<input type="text" id="projname" name="projname">
 					</div>
 				</div>
                 <div class="row">
@@ -55,7 +52,7 @@
 						<label for="comment">Log content</label>
 					</div>
 					<div class="col-75">
-						<textarea id="logcont" name="logcont" style="height:45px"></textarea>
+						<input type="text" id="logcont" name="logcont">
 					</div>
 				</div>
 				<div class="row">

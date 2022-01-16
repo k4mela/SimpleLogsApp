@@ -24,7 +24,6 @@
 				<div class="col-75">
 					<select id="user" name="user">
 						<option value="{{ user.username }}">{{ user.username }}</option>
-						<option value="testuser">testuser</option>
 					</select>
 				</div>
 			</div>
@@ -33,7 +32,7 @@
 					<label for="project">Project name</label>
 				</div>
 				<div class="col-75">
-					<textarea id="project" name="project" style="height:45px"></textarea>
+					<input type="text" id="project" name="project" required>
 				</div>
 			</div>
 			<div class="row">
@@ -41,7 +40,7 @@
 					<label for="description">Description</label>
 				</div>
 				<div class="col-75">
-					<textarea id="description" name="description" style="height:45px"></textarea>
+					<input type="text" id="description" name="description" required>
 				</div>
 			</div>
 			<div class="row">

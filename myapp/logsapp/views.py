@@ -18,6 +18,23 @@ from .models import AddLogs, AddProjects
 from .serializers import AddLogsSerializer, UserSerializer
 
 
+def get_stats(project):
+    logs = AddLogs.objects.filter(projname=project)
+    #štetje logov zadnjih 24 ur
+    logs24 = 0
+    #zadnjih 60 min
+    logs60m = 0
+    #štetje stopenj resnosti
+    severity = {"7": 0, "6": 0, "5": 0, "4": 0, "3": 0, "2": 0, "1": 0, "0": 0}
+    for log in logs:
+        severity[str(log.sevlevel)] += 1
+        first = log.time 
+        second = timezone.localtime() + timedelta(hours=1)
+        if "day" not in str(second - first):
+            logs24 += 1
+        if str(second - first)[0] == "0":
+            logs60m += 1
+    return logs24, logs60m, severity
 
 def downloadpage(request):
     user = request.GET.get('user')
@@ -153,34 +170,17 @@ def projectoverviewpage(request):
     data = []
     if request.method == "POST":
         
+        user = request.POST.get('user')
         project = request.POST.get('project')
-        
-        if project:
-            logs = AddLogs.objects.filter(projname=project)
-            print(len(logs))
-            #štetje logov zadnjih 24 ur
-            logs24 = 0
-            #zadnjih 60 min
-            logs60m = 0
-            #štetje stopenj resnosti
-            severity = {"7": 0, "6": 0, "5": 0, "4": 0, "3": 0, "2": 0, "1": 0, "0": 0}
-            for log in logs:
-                severity[str(log.sevlevel)] += 1
-                first = log.time 
-                second = timezone.localtime() + timedelta(hours=1)
-                print(second - first)
-                print("NOW: " + str(second))
-                if "day" not in str(second - first):
-                    logs24 += 1
-                if str(second - first)[0] == "0":
-                    logs60m += 1
+
         #zapnem projekt info in statistiko
-            kwargs = dict(project=project)
-            posts = AddProjects.objects.filter(**{k: v for k, v in kwargs.items() if v != '' and v != None})
+        kwargs = dict(user=user, project=project)
+        posts = AddProjects.objects.filter(**{k: v for k, v in kwargs.items() if v != '' and v != None})
         #posts = AddProjects.objects.filter(project=project)
-            for post in posts:
-                context = {'user':post.user,'project':post.project, 'description':post.description, 'severity': severity, 'logs24': logs24, 'logs60m': logs60m}
-                data.append(context)
+        for post in posts:
+            logs24, logs60m, severity = get_stats(post.project)
+            context = {'user':post.user,'project':post.project, 'description':post.description, 'severity': severity, 'logs24': logs24, 'logs60m': logs60m}
+            data.append(context)
                                     
     return render(request, 'projectoverview.html', {'data': data})
 
