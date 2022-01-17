@@ -71,7 +71,7 @@ class UserViews(APIView):
             email = request.data.get('email')
             first_name = request.data.get('first_name')
             last_name = request.data.get('last_name')
-            print(username, password, email, first_name, last_name)
+            #print(username, password, email, first_name, last_name)
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name)
 
             user.set_password(password)
@@ -105,7 +105,7 @@ class AddLogsViews(APIView):
             projname = request.data.get('projname')
             logcont = request.data.get('logcont')
             posts = AddProjects.objects.filter(project=projname)
-            print("serializer valid")
+            #print("serializer valid")
             #poglej da ni kaj none, in da projekt obstaja
             if user and sevlevel and time and projname and logcont and len(posts) != 0:
                 serializer.save()
